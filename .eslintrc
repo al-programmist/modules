@@ -303,7 +303,7 @@
 			"never"
 		],
 		"func-name-matching": "off",
-		"func-names": "warn",
+		"func-names": ["error", "never"],
 		"func-style": "off",
 		"id-blacklist": "off",
 		"id-length": "off",

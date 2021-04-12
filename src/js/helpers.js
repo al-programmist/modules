@@ -5,11 +5,16 @@ vars.$document = $(document);
 vars.$window = $(window);
 vars.$body = $(document.body);
 vars.$html = $(document.documentElement);
-vars.$siteContainer = $('.site-container');
+vars.$siteContainer = $('.l-wrapper');
 vars.$preloader = $('.preloader');
 vars.$header = $('.header');
+vars.$main = $('.main');
+vars.$footer = $('.footer');
 vars.isMobile = () => innerWidth <= 1024;
 vars.isIE = () => vars.$html.hasClass('is-browser-ie');
+vars.isFirefox = () => vars.$html.hasClass('is-browser-firefox');
+vars.isChrome = () => vars.$html.hasClass('is-browser-chrome');
+vars.isSafari = () => vars.$html.hasClass('is-browser-safari');
 vars.winWidth = window.innerWidth;
 
 const debounced = [];
@@ -76,6 +81,28 @@ vars.getScrollbarWidth = () => {
 
 	return scrollDiv.offsetWidth - scrollDiv.clientWidth;
 };
+
+// Медиазапрос на Javascript--------------------------------------------------------------------------------------(2)
+// @param mediaQueryString (String) - строка медиа-запроса как в CSS
+// @param action(function) - функция, которая выполняется при соблюдении условий медиа-запроса
+vars.media = function (mediaQueryString, action) {
+	let handleMatchMedia = function (mediaQuery) {
+		if (mediaQuery.matches) { // Попадает в запроc
+			if (action && typeof action === 'function') {
+				action();
+			}
+		}
+	};
+	let mql = window.matchMedia(mediaQueryString); // стандартный медиазапрос для смены режима просмотра
+	handleMatchMedia(mql);
+	mql.addListener(handleMatchMedia);
+};
+
+/* Usage:
+       media('all and (max-width: 550px)', function(){
+       $('.mobile-search-result__item a').addClass('clearfix');
+   });
+*/
 
 function hasHoverSupport() {
 	let hoverSupport;

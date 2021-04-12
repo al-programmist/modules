@@ -402,6 +402,9 @@ gulp.task('serve', () => {
 				baseDir: './build',
 				middleware,
 			},
+			ui: {
+				port: 8080
+			}
 		});
 });
 
